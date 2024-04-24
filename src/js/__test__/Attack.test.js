@@ -6,6 +6,11 @@ test('Должен создаваться объект', () => {
   expect(new Character('Nick', 'Daemon')).toBeDefined();
 });
 
+test('Проверка выбора типа героя', () => {
+  const hero = new Daemon('Nick');
+  expect(hero.type).toBe('Daemon'); 
+});
+
 test('Атака в зависимости от растояния', () => {
   const magician = new Magician();
   magician.attack = 100;
@@ -14,7 +19,6 @@ test('Атака в зависимости от растояния', () => {
   expect(result(3)).toEqual(80);
   expect(result(4)).toEqual(70);
   expect(result(5)).toEqual(60);
- 
 });
 
 test("Атака под дурманом", () => {
@@ -27,4 +31,14 @@ test("Атака под дурманом", () => {
   expect(result(4)).toEqual(60);
   expect(result(5)).toEqual(48);
 });
+
+test('Расстояние не должно быть меньше 1', () => {
+  const daemon = new Daemon();
+  expect(() => daemon.attack(0)).toThrow(new Error('Расстояние не должно быть меньше 1 и больше 10'));
+})
+
+test('Расстояние не должно быть больше 10', () => {
+  const magician = new Magician();
+  expect(() => magician.attack(11)).toThrow(new Error('Расстояние не должно быть меньше 1 и больше 10'));
+})
 
